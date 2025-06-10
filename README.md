@@ -85,33 +85,6 @@ Visit [http://localhost:3000](http://localhost:3000)
 
 ---
 
-## 🗂 Project Structure
-
-```
-whaleguard/
-├── src/
-│   ├── components/
-│   │   ├── Header.tsx
-│   │   ├── Alerts.tsx
-│   │   ├── TransactionVisualizer.tsx
-│   │   ├── Settings.tsx
-│   ├── pages/
-│   │   └── Dashboard.tsx
-│   ├── services/
-│   │   └── noditService.ts
-│   ├── styles/
-│   │   └── index.css
-│   ├── App.tsx
-│   ├── index.tsx
-│   └── types.ts
-├── tailwind.config.js
-├── .env
-├── package.json
-├── README.md
-```
-
----
-
 ## Usage
 
 * **View Dashboard**: Visit [http://localhost:3000](http://localhost:3000)
