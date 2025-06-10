@@ -1,16 +1,12 @@
-Here's your content formatted as a `README.md` file:
+# WhaleGuard
 
----
-
-# 🐋 WhaleGuard
-
-**WhaleGuard** is an AI-powered decentralized application (dApp) built for the **WaveHack Buildathon**, leveraging **Nodit’s Blockchain Model Context Protocol (MCP)**, **Web3 Data API**, and **Webhook/Stream** services.
+**WhaleGuard** is an AI-powered decentralized application (dApp) built for the **Nodit’s Blockchain Model Context Protocol (MCP)**, **Web3 Data API**, and **Webhook/Stream** services.
 
 It provides a real-time dashboard to track whale movements (large token transfers) across multiple blockchains like **Ethereum** and **XRPL**, with AI-generated explanations for abnormal activity. The frontend is built using **React**, **TypeScript**, **Tailwind CSS**, and **Framer Motion** for a sleek, modern UI.
 
 ---
 
-## 🚀 Features
+## Features
 
 * **Real-Time Whale Monitoring**: Tracks large token movements across chains using Nodit Webhook/Stream.
 * **AI-Powered Explanations**: Generates natural language insights using Nodit’s MCP.
@@ -116,7 +112,7 @@ whaleguard/
 
 ---
 
-## 🧭 Usage
+## Usage
 
 * **View Dashboard**: Visit [http://localhost:3000](http://localhost:3000)
 * **Monitor Alerts**: Real-time whale activity with AI-generated summaries.
@@ -128,7 +124,7 @@ whaleguard/
 
 ---
 
-## 🔌 Nodit Integration
+## Nodit Integration
 
 ### Webhook/Stream
 
@@ -161,7 +157,7 @@ curl --request POST \
 
 ---
 
-## 🧰 Development Scripts
+## Development Scripts
 
 ### Local Development
 
