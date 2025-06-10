@@ -1,4 +1,5 @@
 WhaleGuard
+
 WhaleGuard is an AI-powered decentralized application (dApp) built for the WaveHack buildathon, leveraging Nodit’s Blockchain Model Context Protocol (MCP), Web3 Data API, and Webhook/Stream services. It provides a real-time dashboard to track whale movements (large token transfers) across multiple blockchains, such as Ethereum and XRPL, with AI-generated explanations for abnormal activity. The front end is built with React, TypeScript, Tailwind CSS, and Framer Motion for a modern, animated user interface.
 Features
 Real-Time Whale Monitoring: Tracks large token movements across multiple chains using Nodit’s Webhook/Stream.
@@ -19,7 +20,7 @@ Supported Browser: Chrome, Firefox, or any modern browser
 Installation
 Clone the Repository:
 bash
-git clone https://github.com/your-username/whaleguard.git
+git clone https://github.com/ernnies/WhaleGuard.git
 cd whaleguard
 Install Dependencies:
 bash
