@@ -1,191 +1,105 @@
 # WhaleGuard
 
-**WhaleGuard** is an AI-powered decentralized application (dApp) built for the **Nodit’s Blockchain Model Context Protocol (MCP)**, **Web3 Data API**, and **Webhook/Stream** services.
-
-It provides a real-time dashboard to track whale movements (large token transfers) across multiple blockchains like **Ethereum** and **XRPL**, with AI-generated explanations for abnormal activity. The frontend is built using **React**, **TypeScript**, **Tailwind CSS**, and **Framer Motion** for a sleek, modern UI.
-
----
+WhaleGuard is an AI-powered decentralized application (dApp) leveraging Nodit’s Blockchain Model Context Protocol (MCP), Web3 Data API, and Webhook/Stream services. It provides a real-time dashboard to track whale movements across multiple blockchains (Ethereum, XRPL, Polygon, Bitcoin), with AI-generated explanations for abnormal activity.
 
 ## Features
 
-* **Real-Time Whale Monitoring**: Tracks large token movements across chains using Nodit Webhook/Stream.
-* **AI-Powered Explanations**: Generates natural language insights using Nodit’s MCP.
-* **Multi-Chain Support**: Supports Ethereum, XRPL, and more with chain selection.
-* **Interactive Dashboard**: Real-time alerts, transaction visualizer, and customizable settings.
-* **Custom Alerts**: Users can set thresholds for large transactions (e.g., >1,000 ETH).
+- **Real-Time Whale Alerts**: Monitors large token transfers using Nodit’s Webhook/Stream, with live updates via WebSocket.
+- **Multi-Chain Data**: Queries token transfers, native balances, and NFT ownership across Ethereum, XRPL, and more using Nodit’s Web3 Data API.
+- **AI Explanations**: Uses Nodit MCP to generate natural language insights for whale movements.
+- **Interactive Dashboard**: Built with React, TypeScript, Tailwind CSS, and Framer Motion, featuring charts (Recharts) and responsive design.
+- **Customizable Settings**: Configure chains and alert thresholds (e.g., >1,000 ETH).
 
----
+## Tech Stack
 
-## 🛠 Tech Stack
+- **Frontend**: React, TypeScript, Tailwind CSS, Framer Motion, Recharts
+- **Backend**: Node.js, Express, WebSocket (for Webhook handling)
+- **Blockchain**: Nodit Web3 Data API, Webhook/Stream, MCP
+- **Supported Chains**: Ethereum, XRPL, Polygon, Bitcoin
+- **Dependencies**: `axios`, `react-router-dom`, `@types/react-router-dom`, `@noditlabs/nodit-mcp-server`, `express`, `ws`, `recharts`
 
-* **Frontend**: React, TypeScript, Tailwind CSS, Framer Motion
-* **Blockchain Integration**: Nodit Web3 Data API, Webhook/Stream, MCP
-* **Dependencies**: `axios`, `react-router-dom`, `@types/react-router-dom`, `@noditlabs/nodit-mcp-server`
-* **Supported Chains**: Ethereum, XRPL (expandable to Polygon, Aptos, Bitcoin, etc.)
+## Prerequisites
 
----
+- **Node.js**: v16 or higher
+- **npm**: v7 or higher
+- **Nodit API Key**: Obtain from [nodit.io](https://nodit.io)
+- **Supported Browser**: Chrome, Firefox, or any modern browser
 
-## ✅ Prerequisites
+## Installation
 
-* **Node.js**: v16 or higher
-* **npm**: v7 or higher
-* **Nodit API Key**: [Get one at](https://nodit.io)
-* **Supported Browsers**: Chrome, Firefox, or any modern browser
-
----
-
-## 📦 Installation
-
+1. **Clone the Repository**:
 ```bash
-git clone https://github.com/ernnies/WhaleGuard.git
-cd whaleguard
+   git clone https://github.com/ernnies/whaleguard.git
+   cd whaleguard
+
+Install Dependencies:
+bash
 npm install
-```
 
-### ⚙️ Environment Setup
-
-Create a `.env` file in the root directory and add your API key:
-
-```env
+Set Up Environment Variables:
+Create a .env file:
+env
 REACT_APP_NODIT_API_KEY=your_nodit_api_key_here
-```
+Configure Tailwind CSS:
+Ensure tailwind.config.js and src/index.css are set up (see previous README).
 
-### 🧩 Tailwind CSS Configuration
+Run Webhook Server:
 
-#### `tailwind.config.js`
+bash
+node server.js
+Run MCP Server:
 
-```js
-/** @type {import('tailwindcss').Config} */
-module.exports = {
-  content: ["./src/**/*.{js,jsx,ts,tsx}"],
-  theme: { extend: {} },
-  plugins: [],
-};
-```
+bash
+npx @noditlabs/nodit-mcp-server@latest
 
-#### `src/index.css`
-
-```css
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
-```
-
----
-
-## 🧪 Running the App
-
-Start the development server:
-
-```bash
+Start the Development Server:
+bash
 npm start
-```
 
-Visit [http://localhost:3000](http://localhost:3000)
+Usage
+Dashboard: Access at http://localhost:3000.
+Real-Time Alerts: View live whale movements via Webhook updates.
 
----
+Transaction Visualizer: See token transfers, balances, and NFTs with a line chart for volume.
 
-## Usage
+Settings: Select chains (Ethereum, XRPL, etc.) and set alert thresholds.
+AI Explanations: Read MCP-generated insights for each alert.
 
-* **View Dashboard**: Visit [http://localhost:3000](http://localhost:3000)
-* **Monitor Alerts**: Real-time whale activity with AI-generated summaries.
-* **Visualize Transactions**: Animated transaction feed across chains.
-* **Configure Settings**:
+Nodit Integration
+Webhook/Stream: Subscribes to real-time token transfer events (e.g., >1,000 ETH).
+Web3 Data API: Queries token transfers (/token/getTokenTransfersByAccount), balances (/native/getNativeBalanceByAccount), and NFTs (/nft/getNftsOwnedByAccount).
 
-  * Choose supported chains (Ethereum, XRPL, etc.)
-  * Set whale thresholds (e.g., >1000 tokens)
+MCP: Generates AI-driven explanations via a local MCP server.
 
----
 
-## Nodit Integration
+npm install -g vercel
+vercel
+Set REACT_APP_NODIT_API_KEY in Vercel’s dashboard.
 
-### Webhook/Stream
 
-> *(Planned)* Live updates via Nodit’s stream service (requires Webhook setup)
+Future Enhancements
+Support additional chains (Aptos, Kaia).
+Integrate a real LLM (e.g., Claude) for MCP.
 
-### Web3 Data API Example
+Enhance charts with more metrics (e.g., NFT trading volume).
 
-```bash
-curl --request POST \
-  --url https://web3.nodit.io/v1/ethereum/mainnet/token/getTokenTransfersByAccount \
-  --header "X-API-KEY: ****" \
-  --header "accept: application/json" \
-  --header "content-type: application/json" \
-  --data '{"accountAddress": "0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045", "fromDate": "2025-06-01T00:00:00+00:00", "toDate": "2025-06-10T23:59:59+00:00"}'
-```
+WhaleGuard showcases Nodit’s features for real-time, multi-chain, AI-powered Web3 applications
 
-### Model Context Protocol (MCP)
+Contributing
+Fork the repository.
+Create a feature branch (git checkout -b feature/your-feature).
+Commit changes (git commit -m "Add your feature").
+Push to the branch (git push origin feature/your-feature).
+Open a pull request.
 
-```json
-{
-  "mcpServers": {
-    "nodit": {
-      "command": "npx",
-      "args": ["@noditlabs/nodit-mcp-server@latest"],
-      "env": { "NODIT_API_KEY": "****" }
-    }
-  }
-}
-```
 
 ---
 
-## Development Scripts
 
-### Local Development
+- **Nodit Feature Usage**:
+  - **Webhook/Stream**: Real-time alerts via WebSocket, addressing the feedback for live data.
+  - **Web3 Data API**: Queries for tokens, balances, and NFTs across multiple chains, showcasing diversity.[](https://developer.nodit.io/docs/web3-data-api-tutorials)[](https://developer.nodit.io/docs/building-a-simple-token-explorer-using-web3-data-apis)
+  - **MCP**: AI explanations enhance the app’s intelligence, aligning with Nodit’s AI-Web3 synergy.[](https://github.com/noditlabs)
+- **Lightweight UI**: Retained simplicity while adding charts and responsiveness.
+- **Robust Implementation**: Error handling, loading states, and deployment ensure a polished demo.
 
-```bash
-npm start
-```
-
-### Production Build
-
-```bash
-npm run build
-```
-
-### Lint & Format (requires setup)
-
-```bash
-npm run lint
-```
-
----
-
-## 🔮 Future Enhancements
-
-* ✅ Real-Time Webhooks via Nodit
-* ✅ Support more chains (Polygon, Aptos, Bitcoin)
-* 📈 Charts using `recharts` or `chart.js`
-* 🤖 LLM Integration (e.g., Claude) for deeper insights
-* 📱 Mobile responsiveness
-* 🌗 Light/Dark theme toggle
-
----
-
-## 🏁 WaveHack Buildathon
-
-**WhaleGuard** is built to showcase the power of Nodit’s ecosystem:
-
-* 💡 Innovation: Real-time blockchain data + AI insight
-* 🔗 Multi-Chain: Ethereum, XRPL, and more
-* 🎨 UX: Sleek interface with Framer Motion
-* 🧱 Scalable: Webhook-ready and easily extendable
-
-Submit your build at [akindo.io](https://akindo.io)
-
----
-
-## 🤝 Contributing
-
-1. Fork the repo
-2. Create your branch: `git checkout -b feature/your-feature`
-3. Commit: `git commit -m "Add your feature"`
-4. Push: `git push origin feature/your-feature`
-5. Open a PR 🚀
-
----
-
-## 📄 License
-
-This project is licensed under the **MIT License**.

@@ -8,6 +8,7 @@ export const alertController = {
       const alerts = await Alert.find().sort({ timestamp: -1 }).limit(10);
       res.json(alerts);
     } catch (error) {
+      console.error('Error fetching alerts:', error);
       res.status(500).json({ error: 'Failed to fetch alerts' });
     }
   },
@@ -18,6 +19,7 @@ export const alertController = {
       const explanation = await noditMcpService.generateExplanation(data);
       res.json({ explanation });
     } catch (error) {
+      console.error('Error generating explanation:', error);
       res.status(500).json({ error: 'Failed to generate explanation' });
     }
   },
