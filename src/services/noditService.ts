@@ -5,7 +5,6 @@ const NODIT_API_KEY = process.env.REACT_APP_NODIT_API_KEY || '****'; // Replace 
 const WEB3_API_URL = 'https://web3.nodit.io/v1';
 
 export const fetchWhaleAlerts = async (): Promise<WhaleAlert[]> => {
-  // Placeholder: Fetch large token transfers using Nodit Web3 Data API
   try {
     const response = await axios.post(
       `${WEB3_API_URL}/ethereum/mainnet/token/getTokenTransfersByAccount`,
@@ -23,7 +22,6 @@ export const fetchWhaleAlerts = async (): Promise<WhaleAlert[]> => {
       }
     );
 
-    // Simulate AI explanation via Nodit MCP
     const alerts: WhaleAlert[] = response.data.transfers
       .filter((tx: any) => tx.value > 1000) // Example threshold
       .map((tx: any, index: number) => ({
@@ -32,13 +30,13 @@ export const fetchWhaleAlerts = async (): Promise<WhaleAlert[]> => {
         transactionHash: tx.hash,
         fromAddress: tx.from,
         toAddress: tx.to,
-        amount: tx.value,
+        amount: tx.value / 1e18, // Convert Wei to ETH
         token: tx.tokenSymbol,
         timestamp: tx.timestamp,
-        explanation: `Large transfer detected: ${tx.value} ${tx.tokenSymbol} moved from ${tx.from.slice(
+        explanation: `Large transfer detected: ${tx.value / 1e18} ${tx.tokenSymbol} moved from ${tx.from.slice(
           0,
           6
-        )}... to ${tx.to.slice(0, 6)}... on ${new Date(tx.timestamp).toLocaleString()}. Possible whale activity or liquidity shift.`, // Simulated MCP output
+        )}... to ${tx.to.slice(0, 6)}... on ${new Date(tx.timestamp).toLocaleString()}. Possible whale activity or liquidity shift.`,
       }));
 
     return alerts;
@@ -49,12 +47,10 @@ export const fetchWhaleAlerts = async (): Promise<WhaleAlert[]> => {
 };
 
 export const fetchRecentTransactions = async (): Promise<Transaction[]> => {
-  // Placeholder: Fetch recent transactions using Nodit Web3 Data API
   try {
     const response = await axios.post(
       `${WEB3_API_URL}/xrpl/mainnet/transactions`,
       {
-        // Example parameters for XRPL transactions
         limit: 10,
       },
       {
@@ -79,6 +75,60 @@ export const fetchRecentTransactions = async (): Promise<Transaction[]> => {
     return transactions;
   } catch (error) {
     console.error('Error fetching transactions:', error);
+    return [];
+  }
+};
+
+export const fetchAccountBalance = async (
+  address: string,
+  protocol: string = 'ethereum',
+  network: string = 'mainnet'
+): Promise<number> => {
+  try {
+    const response = await axios.post(
+      `${WEB3_API_URL}/${protocol}/${network}/native/getNativeBalanceByAccount`,
+      { accountAddress: address },
+      {
+        headers: {
+          'X-API-KEY': NODIT_API_KEY,
+          'Content-Type': 'application/json',
+          Accept: 'application/json',
+        },
+      }
+    );
+    return response.data.balance / 1e18; // Convert Wei to ETH or equivalent
+  } catch (error) {
+    console.error('Error fetching balance:', error);
+    return 0;
+  }
+};
+
+export const fetchNFTsOwned = async (
+  address: string,
+  protocol: string = 'ethereum',
+  network: string = 'mainnet'
+): Promise<any[]> => {
+  try {
+    const response = await axios.post(
+      `${WEB3_API_URL}/${protocol}/${network}/nft/getNftsOwnedByAccount`,
+      {
+        accountAddress: address,
+        withCount: true,
+        withMetadata: true,
+        rpp: 10,
+        page: 1,
+      },
+      {
+        headers: {
+          'X-API-KEY': NODIT_API_KEY,
+          'Content-Type': 'application/json',
+          Accept: 'application/json',
+        },
+      }
+    );
+    return response.data.items;
+  } catch (error) {
+    console.error('Error fetching NFTs:', error);
     return [];
   }
 };

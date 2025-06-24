@@ -7,7 +7,7 @@ export interface WhaleAlert {
   amount: number;
   token: string;
   timestamp: string;
-  explanation: string; // AI-generated via Nodit MCP
+  explanation: string; 
 }
 
 export interface Transaction {
@@ -18,4 +18,16 @@ export interface Transaction {
   amount: number;
   token: string;
   timestamp: string;
+}
+
+export interface WhaleAlert {
+  id: string;
+  chain: string;
+  transactionHash: string;
+  fromAddress: string;
+  toAddress: string;
+  amount: number;
+  token: string;
+  timestamp: string;
+  explanation: string;
 }

@@ -1,24 +1,43 @@
 import React, { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
-import { Transaction } from '../types';
-import { fetchRecentTransactions } from '../services/noditService';
+import { Transaction, WhaleAlert } from '../types';
+import { fetchRecentTransactions, fetchAccountBalance, fetchNFTsOwned } from '../services/noditService';
 
 const TransactionVisualizer: React.FC = () => {
   const [transactions, setTransactions] = useState<Transaction[]>([]);
+  const [balance, setBalance] = useState<number>(0);
+  const [nfts, setNfts] = useState<any[]>([]);
 
   useEffect(() => {
     const fetchData = async () => {
-      const data = await fetchRecentTransactions();
-      setTransactions(data);
+      const txs = await fetchRecentTransactions();
+      const bal = await fetchAccountBalance('0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045');
+      const nftData = await fetchNFTsOwned('0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045');
+      setTransactions(txs);
+      setBalance(bal);
+      setNfts(nftData);
     };
-
     fetchData();
-    // TODO: Set up Nodit Webhook/Stream for real-time updates
   }, []);
 
   return (
     <div className="bg-gray-800 p-4 rounded-lg shadow-md">
-      <h2 className="text-xl font-semibold mb-2">Recent Transactions</h2>
+      <h2 className="text-xl font-semibold mb-2">Recent Activity</h2>
+      <div className="mb-4">
+        <h3 className="font-semibold">Whale Balance</h3>
+        <p>{balance.toLocaleString()} ETH</p>
+      </div>
+      <div className="mb-4">
+        <h3 className="font-semibold">NFTs Owned</h3>
+        <div className="grid grid-cols-2 gap-2">
+          {nfts.map((nft) => (
+            <div key={nft.tokenId} className="p-2 bg-gray-700 rounded-lg">
+              <p>Token ID: {nft.tokenId}</p>
+              <p>Contract: {nft.contractAddress.slice(0, 6)}...</p>
+            </div>
+          ))}
+        </div>
+      </div>
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
         {transactions.map((tx) => (
           <motion.div

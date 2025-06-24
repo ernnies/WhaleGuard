@@ -8,5 +8,10 @@
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "description": ""
+  "description": "",
+  "dependencies": {
+    "@noditlabs/nodit-mcp-server": "^1.0.5",
+    "express": "^5.1.0",
+    "ws": "^8.18.2"
+  }
 }
